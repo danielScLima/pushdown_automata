@@ -1,7 +1,7 @@
 digraph G {
 	subgraph cluster_1 {
 		node [style=filled];
-		label = "Turing Machine: Example_A"
+		label = "Pushdown automata: Example_A"
 		color=blue;
 
 		q0;

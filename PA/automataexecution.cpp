@@ -135,7 +135,7 @@ std::string AutomataExecution::produce_content_of_draw()
     std::string content = "digraph G {\n";
     content += "\tsubgraph cluster_1 {\n";
     content += "\t\tnode [style=filled];\n";
-    content += "\t\tlabel = \"Turing Machine: "+this->automataInstance.nameOfAutomata+"\"\n"
+    content += "\t\tlabel = \"Pushdown automata: "+this->automataInstance.nameOfAutomata+"\"\n"
         "\t\tcolor=blue;\n"
         "\n";
 
@@ -273,7 +273,7 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
 
     content += "\tsubgraph cluster_1 {\n";
     content += "\t\tnode [style=filled];\n";
-    content += "\t\tlabel = \"Pushdown automata: "+message+"\"\n"
+    content += "\t\tlabel = \"Pushdown automata: "+this->automataInstance.nameOfAutomata+"\n"+message+"\"\n"
         "\t\tcolor=blue;\n"
         "\n";
 
