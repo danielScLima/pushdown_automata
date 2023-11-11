@@ -219,6 +219,45 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
     content += "color=red;\n";
     content += "}\n";
 
+    //inicio de desenhando stack
+    content += "\tsubgraph cluster_2 {\n";
+    content += "\t\tnode [shape=plaintext];\n";
+    content += "\n";
+
+
+    if (this->char_stack.size() > 0)
+    {
+        content += "struct2 [label=<<TABLE>\n";
+        for (int index = this->char_stack.size() - 1; index > -1; index--)
+        {
+            content += "<TR>\n";
+            content += "<TD>\n";
+            content += this->char_stack[index];
+            content += "</TD>\n";
+            content += "</TR>\n";
+        }
+        content += "</TABLE>>];\n";
+    }
+    else
+    {
+        content += "struct2 [label=<<TABLE>\n";
+
+        content += "<TR>\n";
+        content += "<TD width=\"10\" height=\"50\">\n";
+        content += "";
+        content += "</TD>\n";
+        content += "</TR>\n";
+
+        content += "</TABLE>>];\n";
+    }
+
+
+    content += "label = \"Stack top\";\n";
+    content += "color=red;\n";
+    content += "}\n";
+
+    //fim de desenhando stack
+
 
     content += "\tsubgraph cluster_1 {\n";
     content += "\t\tnode [style=filled];\n";
