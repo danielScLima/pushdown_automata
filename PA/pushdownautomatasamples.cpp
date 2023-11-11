@@ -36,7 +36,7 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_1()
         {
             {}, //vetor chegando no 0
             {}, //vetor chegando no 1
-            {},  //vetor chegando no 2
+            {}, //vetor chegando no 2
             {} //vetor chegando no 3
         },
     };
@@ -47,6 +47,6 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_1()
         st,                             //structure
         0,                              //start_state
         vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
-        "Exemplo 0"                     //nameOfAutomata
+        "Example_0"                     //nameOfAutomata
     );
 }
