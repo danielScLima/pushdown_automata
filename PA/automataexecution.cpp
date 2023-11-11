@@ -46,8 +46,7 @@ void AutomataExecution::draw_automata_considering_input(const std::string& msg)
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
     std::string name_of_image =
-            this->automataInstance.nameOfAutomata+std::to_string(this->id_of_processed_char_input+1)+".png";
-    draw_automata(local_url, name_of_image);
+            this->automataInstance.nameOfAutomata+"_"+std::to_string(this->id_of_processed_char_input+1)+".png";
 
     int write_acceptance_status = 0;
 
@@ -68,7 +67,7 @@ void AutomataExecution::draw_automata_considering_input(const std::string& msg)
         write_acceptance_status
     );
 
-    draw_automata(
+    draw_automata_considering_input(
         local_url,
         name_of_image,
         content
@@ -95,6 +94,17 @@ void AutomataExecution::draw_automata(const std::string& local_url, const std::s
 }
 
 void AutomataExecution::draw_automata(
+    const std::string& local_url,
+    const std::string &url,
+    const std::string& content
+)
+{
+    write_to_file(local_url+"/file.dot", content);
+    std::string command = "dot "+local_url+"/file.dot -Tpng > "+local_url+"/"+url;
+    system(command.c_str());
+}
+
+void AutomataExecution::draw_automata_considering_input(
     const std::string& local_url,
     const std::string &url,
     const std::string& content

@@ -36,6 +36,12 @@ private:
         const std::string& content
     );
 
+    void draw_automata_considering_input(
+        const std::string& local_url,
+        const std::string &url,
+        const std::string& content
+    );
+
     void write_to_file(const std::string &url, const std::string &content);
 
     std::string produce_content_of_draw();
