@@ -16,7 +16,7 @@ color=red;
 		label = "Pushdown automata: Before to read any input"
 		color=blue;
 
-		q0;
+		q0 [color="lightblue"];
 		q1;
 		q2;
 		q3 [shape="doublecircle"];

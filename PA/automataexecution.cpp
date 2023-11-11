@@ -20,6 +20,7 @@ bool AutomataExecution::process_word(const std::string &word)
 {
     reset_indexes();
     this->word = word;
+    this->current_state = this->automataInstance.start_state;
 
     draw_automata_considering_input("Before to read any input");
 
