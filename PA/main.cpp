@@ -11,5 +11,7 @@ int main()
     AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_1());
     automataExecution.draw_automata();
 
+    automataExecution.process_word("01");
+
     return 0;
 }
