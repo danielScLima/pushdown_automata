@@ -14,6 +14,8 @@ public:
 
     bool process_word(const std::string& word);
 
+    bool test1_remove_later(const std::string &word);
+
 private:
     int current_state = -1; //Must be initialized with the initial state of the machine
     int id_of_processed_char_input = -1; //in the state none of the input char was processed

@@ -36,6 +36,18 @@ bool AutomataExecution::process_word(const std::string &word)
     return true;
 }
 
+bool AutomataExecution::test1_remove_later(const std::string &word)
+{
+    reset_indexes();
+    this->word = word;
+    this->current_state = 1;
+    this->char_stack = "000";
+
+    draw_automata_considering_input("After read 0");
+
+    return true;
+}
+
 void AutomataExecution::draw_automata()
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
