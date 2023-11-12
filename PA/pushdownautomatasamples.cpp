@@ -8,36 +8,36 @@ PushdownAutomataSamples::PushdownAutomataSamples()
 AutomataInstance PushdownAutomataSamples::get_structure_of_sample_1()
 {
     std::vector<std::vector<std::vector<Transition>>> st = {
-        //vetor partindo 0
+        //vector starting from 0
         {
-            {}, //vetor chegando no 0
-            {Transition('e','e','$')}, //vetor chegando no 1
-            {}, //vetor chegando no 2
-            {}, //vetor chegando no 3
+            {}, //vector arriving at 0
+            {Transition('e','e','$')}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {}, //vector arriving at 3
         },
 
-        //vetor partindo do 1
+        //vector starting from 1
         {
-            {}, //vetor chegando no 0
-            {Transition('0','e','0')}, //vetor chegando no 1
-            {Transition('1','0','e')},  //vetor chegando no 2
-            {} //vetor chegando no 3
+            {}, //vector arriving at 0
+            {Transition('0','e','0')}, //vector arriving at 1
+            {Transition('1','0','e')},  //vector arriving at 2
+            {} //vector arriving at 3
         },
 
-        //vetor partindo do 2
+        //vector starting from 2
         {
-            {}, //vetor chegando no 0
-            {}, //vetor chegando no 1
-            {Transition('1','0','e')},  //vetor chegando no 2
-            {Transition('e','$','e')}, //vetor chegando no 3
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {Transition('1','0','e')},  //vector arriving at 2
+            {Transition('e','$','e')}, //vector arriving at 3
         },
 
-        //vetor partindo do 3
+        //vector starting from 3
         {
-            {}, //vetor chegando no 0
-            {}, //vetor chegando no 1
-            {}, //vetor chegando no 2
-            {} //vetor chegando no 3
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {} //vector arriving at 3
         },
     };
 
@@ -54,36 +54,36 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_1()
 AutomataInstance PushdownAutomataSamples::get_structure_of_sample_2()
 {
     std::vector<std::vector<std::vector<Transition>>> st = {
-        //vetor partindo 0
+        //vector starting from 0
         {
-            {}, //vetor chegando no 0
-            {Transition('e','e','$')}, //vetor chegando no 1
-            {}, //vetor chegando no 2
-            {}, //vetor chegando no 3
+            {}, //vector arriving at 0
+            {Transition('e','e','$')}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {}, //vector arriving at 3
         },
 
-        //vetor partindo do 1
+        //vector starting from 1
         {
-            {}, //vetor chegando no 0
-            {Transition('0','e','0'), Transition('1','e','1')}, //vetor chegando no 1
-            {Transition('e','e','e')},  //vetor chegando no 2
-            {} //vetor chegando no 3
+            {}, //vector arriving at 0
+            {Transition('0','e','0'), Transition('1','e','1')}, //vector arriving at 1
+            {Transition('e','e','e')},  //vector arriving at 2
+            {} //vector arriving at 3
         },
 
-        //vetor partindo do 2
+        //vector starting from 2
         {
-            {}, //vetor chegando no 0
-            {}, //vetor chegando no 1
-            {Transition('0','0','e'),Transition('1','1','e')},  //vetor chegando no 2
-            {Transition('e','$','e')}, //vetor chegando no 3
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {Transition('0','0','e'),Transition('1','1','e')},  //vector arriving at 2
+            {Transition('e','$','e')}, //vector arriving at 3
         },
 
-        //vetor partindo do 3
+        //vector starting from 3
         {
-            {}, //vetor chegando no 0
-            {}, //vetor chegando no 1
-            {}, //vetor chegando no 2
-            {} //vetor chegando no 3
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {} //vector arriving at 3
         },
     };
 

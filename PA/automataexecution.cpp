@@ -67,7 +67,7 @@ bool AutomataExecution::process_word(const std::string &word)
 
         if (possibleTransitions.size() == 0)
         {
-            //Se for estado final, com pilha vazia e palavra toda processada, aceita
+            //If it is a final state, with an empty stack and the entire word has been processed, accept
             //Searches for index in acceptance state vector
             auto it = std::find(
                 this->automataInstance.vectorOfAcceptanceStateIds.begin(),
@@ -81,12 +81,12 @@ bool AutomataExecution::process_word(const std::string &word)
             )
             {
                 draw_automata_considering_input_1p("The word was accepted", 1);
-                return true; //word foi aceita
+                return true; //The word was accepted
             }
             else
             {
                 draw_automata_considering_input_1p("The word was rejected", 2);
-                return false; //word NÃO foi aceita
+                return false; //The word was rejected
             }
         }
         else
@@ -145,18 +145,18 @@ bool AutomataExecution::process_word(const std::string &word)
 
             if (chosen.transition.inputSymbol == 'e')
             {
-                //Não consome entrada
+                //Does not consume input
             }
             else
             {
-                //Consome entrada
+                //consume input
                 this->id_of_processed_char_input++;
             }
 
             if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
                     chosen.transition.topOfStackSymbolToReplace == 'e')
             {
-                //Não precisa fazer nada
+                //You don't need to do anything
             }
             else if (chosen.transition.topOfStackSymbolToBeReplaced != 'e' &&
                      chosen.transition.topOfStackSymbolToReplace != 'e')
@@ -185,30 +185,18 @@ bool AutomataExecution::process_word(const std::string &word)
 int AutomataExecution::read_number_betwen_0_and_max(int numeroMaximo)
 {
     int numero;
-    std::cout << "Digite um número inteiro entre 0 e " << numeroMaximo << std::endl;
+    std::cout << "Enter an integer between 0 and " << numeroMaximo << std::endl;
     std::cin >> numero;
 
     while(std::cin.fail() || numero < 0 || numero > numeroMaximo)
     {
         std::cin.clear();
         std::cin.ignore(256,'\n');
-        std::cout << "Digite um número: " << std::endl;
+        std::cout << "Enter an integer between 0 and " << numeroMaximo << std::endl;
         std::cin >> numero;
     }
-    std::cout << "Número digitado: " << numero << std::endl;
+    std::cout << "The number entered was: " << numero << std::endl;
     return numero;
-}
-
-bool AutomataExecution::test1_remove_later(const std::string &word)
-{
-    reset_indexes();
-    this->word = word;
-    this->current_state = 1;
-    this->char_stack = "000";
-
-    draw_automata_considering_input_1p("After read 0", 0);
-
-    return true;
 }
 
 void AutomataExecution::draw_automata_0p()
@@ -219,9 +207,9 @@ void AutomataExecution::draw_automata_0p()
 }
 
 
-//0: ainda processando
-//1: aceito
-//2: rejeitado
+//0: still processing
+//1: accepted
+//2: rejected
 void AutomataExecution::draw_automata_considering_input_1p(const std::string& msg, int write_acceptance_status)
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
