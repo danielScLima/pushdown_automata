@@ -120,7 +120,7 @@ bool AutomataExecution::process_word(const std::string &word)
                    chosen.transition.topOfStackSymbolToReplace;
             }
 
-            std::string msg = "After read '"+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+"'";
+            std::string msg = "After read '"+std::string(1, chosen.transition.inputSymbol)+"'";
 
             std::cout << "PD " << std::endl;
 
