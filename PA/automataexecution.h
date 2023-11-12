@@ -2,6 +2,7 @@
 #define AUTOMATAEXECUTION_H
 
 #include "automatainstance.h"
+#include "transitionpossibility.h"
 
 class AutomataExecution
 {
@@ -19,11 +20,11 @@ public:
 private:
     int current_state = -1; //Must be initialized with the initial state of the machine
     int id_of_processed_char_input = -1; //in the state none of the input char was processed
-    std::string char_stack; //Inserts and removes in the end
+    std::string char_stack = ""; //Inserts and removes in the end
 
     AutomataInstance automataInstance;
 
-    std::string word;
+    std::string word = "";
 
     void reset_indexes();
 
@@ -49,6 +50,13 @@ private:
     std::string produce_content_of_draw();
 
     std::vector<Transition> getTransitionsOfXStateToYState(int x, int y);
+
+    std::vector<TransitionPossibility> getAvailableTransitions
+    (
+        int currentStateParameter,
+        char topOfStack,
+        char inputToBeProcessed
+    );
 
     std::string produce_content_of_draw_considering_input
     (

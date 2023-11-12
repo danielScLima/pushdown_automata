@@ -12,4 +12,5 @@ HEADERS += \
     automataexecution.h \
     automatainstance.h \
     pushdownautomatasamples.h \
-    transition.h
+    transition.h \
+    transitionpossibility.h

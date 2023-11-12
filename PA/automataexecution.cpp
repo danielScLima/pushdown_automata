@@ -3,6 +3,8 @@
 #include <algorithm>    // std::find
 #include <fstream>
 
+#include <iostream>
+
 AutomataExecution::AutomataExecution(const AutomataInstance& automataInstance):
     automataInstance(automataInstance)
 {
@@ -15,6 +17,8 @@ void AutomataExecution::reset_indexes()
     this->id_of_processed_char_input = -1; //in the state none of the input char was processed
     this->word = "";
 }
+
+
 
 bool AutomataExecution::process_word(const std::string &word)
 {
@@ -31,7 +35,65 @@ bool AutomataExecution::process_word(const std::string &word)
     )
     {
         //Get all of the possible transitions
+        std::vector<TransitionPossibility> possibleTransitions = getAvailableTransitions
+        (
+            this->current_state,
+            this->char_stack.back(),
+            word[this->id_of_processed_char_input]
+        );
+
+        std::cout << "Quant de transitions: " << possibleTransitions.size() << std::endl;
+
+        if (possibleTransitions.size() == 0)
+        {
+            //word não foi aceita
+            return false;
+        }
+        else
+        {
+            TransitionPossibility chosen;
+
+            std::cout << "PA " << std::endl;
+
+            if (possibleTransitions.size() == 1)
+            {
+                std::cout << "PB " << std::endl;
+                //só tem uma transição a fazer
+                chosen = possibleTransitions[0];
+            }
+            else
+            {
+                std::cout << "PC " << std::endl;
+                //Existe mais do que uma transição
+                //Perguntar ao usuario qual usar
+                int escolha = 0;
+                chosen = possibleTransitions[escolha];
+            }
+
+            this->current_state = chosen.destiny_state;
+
+            if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
+                chosen.transition.topOfStackSymbolToReplace == 'e')
+            {} //nada a fazer
+            else if (chosen.transition.topOfStackSymbolToReplace == 'e')
+            {
+                this->char_stack.pop_back();
+            }
+            else
+            {
+                this->char_stack[this->char_stack.size()-1] =
+                   chosen.transition.topOfStackSymbolToReplace;
+            }
+
+            std::string msg = "After read '"+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+"'";
+
+            std::cout << "PD " << std::endl;
+
+            draw_automata_considering_input(msg);
+        }
     }
+
+    draw_automata_considering_input("End of processing");
 
     return true;
 }
@@ -197,6 +259,75 @@ std::vector<Transition> AutomataExecution::getTransitionsOfXStateToYState(int x,
     return this->automataInstance.structure[x][y];
 }
 
+std::vector<TransitionPossibility> AutomataExecution::getAvailableTransitions
+(
+    int currentStateParameter,
+    char topOfStack,
+    char inputToBeProcessed
+)
+{
+    std::vector<std::vector<Transition>> transitionsLeavingCurentState =
+            this->automataInstance.structure[currentStateParameter];
+
+    std::vector<TransitionPossibility> selectedTransitions;
+
+    for(int destIndex = 0; destIndex < transitionsLeavingCurentState.size(); destIndex++)
+    {
+        auto entry = transitionsLeavingCurentState[destIndex];
+        for(int index = 0; index < entry.size(); ++index)
+        {
+            Transition transition = entry[index];
+
+            if (inputToBeProcessed == transition.inputSymbol &&
+                topOfStack == transition.topOfStackSymbolToBeReplaced)
+            {
+                selectedTransitions.push_back(
+                    TransitionPossibility(
+                        currentStateParameter,      //origin_state
+                        destIndex,                  //destiny_state,
+                        transition                  //transition
+                    )
+                );
+            }
+            else if(transition.inputSymbol == 'e' &&
+                    topOfStack == transition.topOfStackSymbolToBeReplaced)
+            {
+                selectedTransitions.push_back(
+                    TransitionPossibility(
+                        currentStateParameter,      //origin_state
+                        destIndex,                  //destiny_state,
+                        transition                  //transition
+                    )
+                );
+            }
+            else if (inputToBeProcessed == transition.inputSymbol &&
+                     transition.topOfStackSymbolToBeReplaced == 'e')
+            {
+                selectedTransitions.push_back(
+                    TransitionPossibility(
+                        currentStateParameter,      //origin_state
+                        destIndex,                  //destiny_state,
+                        transition                  //transition
+                    )
+                );
+            }
+            else if (transition.inputSymbol == 'e' &&
+                     transition.topOfStackSymbolToBeReplaced == 'e')
+            {
+                selectedTransitions.push_back(
+                    TransitionPossibility(
+                        currentStateParameter,      //origin_state
+                        destIndex,                  //destiny_state,
+                        transition                  //transition
+                    )
+                );
+            }
+        }
+    }
+
+    return selectedTransitions;
+}
+
 std::string AutomataExecution::produce_content_of_draw_considering_input
 (
     const std::string &message,
@@ -204,6 +335,8 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
 )
 {
     std::string content = "digraph G {\n";
+
+    std::cout << "x1 " << std::endl;
 
     content += "\tsubgraph cluster_0 {\n";
     content += "\t\tnode [shape=plaintext];\n";
@@ -225,6 +358,8 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
         }
     }
 
+    std::cout << "x2 " << std::endl;
+
     content += "</TR>\n";
     content += "</TABLE>>];\n";
     content += "label = \"Word\";\n";
@@ -236,12 +371,18 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
     content += "\t\tnode [shape=plaintext];\n";
     content += "\n";
 
+    std::cout << "x3 " << std::endl;
 
-    if (this->char_stack.size() > 0)
+    int stack_len = this->char_stack.length();
+    if (stack_len > 0)
     {
+        std::cout << " aqui" << std::endl;
+        std::cout << " tamanho: " << stack_len << std::endl;
         content += "struct2 [label=<<TABLE>\n";
-        for (int index = this->char_stack.size() - 1; index > -1; index--)
+        for (int index = stack_len - 1; index > -1; index--)
         {
+            std::cout << " teste " << std::endl;
+
             content += "<TR>\n";
             content += "<TD>\n";
             content += this->char_stack[index];
@@ -249,6 +390,8 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
             content += "</TR>\n";
         }
         content += "</TABLE>>];\n";
+
+        std::cout << " aqui2" << std::endl;
     }
     else
     {

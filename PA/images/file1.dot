@@ -4,7 +4,7 @@ digraph G {
 
 struct1 [label=<<TABLE>
 <TR>
-<TD><FONT>0</FONT></TD>
+<TD BGCOLOR="gray"><FONT>0</FONT></TD>
 <TD><FONT>1</FONT></TD>
 </TR>
 </TABLE>>];
@@ -26,11 +26,11 @@ color=red;
 	subgraph cluster_1 {
 		node [style=filled];
 		label = "Pushdown automata: Example_A
-Before to read any input"
+After read 'e'"
 		color=blue;
 
-		q0 [color="lightblue"];
-		q1;
+		q0;
+		q1 [color="lightblue"];
 		q2;
 		q3 [shape="doublecircle"];
 		q0->q1[label="e,e -> $"];
