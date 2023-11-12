@@ -29,24 +29,38 @@ char AutomataExecution::getTopCharInStack()
     }
 }
 
+char AutomataExecution::getCharInWord(int index)
+{
+    if (index < this->word.length() == 0)
+        return this->word[index];
+    else
+        return 'e';
+}
+
+bool AutomataExecution::existCharInWordPosition(int index)
+{
+    return index < this->word.length();
+}
+
 bool AutomataExecution::process_word(const std::string &word)
 {
     reset_indexes();
     this->word = word;
     this->current_state = this->automataInstance.start_state;
 
-    draw_automata_considering_input("Before to read any input");
+    draw_automata_considering_input_1p("Before to read any input");
 
     int wordLen =  word.length();
     std::cout << "wordLen: " << wordLen << std::endl;
     std::cout << "this->id_of_processed_char_input: " << this->id_of_processed_char_input << std::endl;
 
-    for (
+    //for (
          //this->id_of_processed_char_input = 0
-         ;
-         this->id_of_processed_char_input < wordLen;
+    //     ;
+    //     this->id_of_processed_char_input < wordLen;
          //this->id_of_processed_char_input++
-    )
+    //)
+    while (true)
     {
         std::cout << "? "<< std::endl;
 
@@ -58,15 +72,28 @@ bool AutomataExecution::process_word(const std::string &word)
             this->current_state,
             //this->char_stack.back(),
             getTopCharInStack(),
-            word[this->id_of_processed_char_input+1]
+            //word[this->id_of_processed_char_input+1]
+            getCharInWord(this->id_of_processed_char_input+1),
+            existCharInWordPosition(this->id_of_processed_char_input+1)
         );
 
         std::cout << "Quant de transitions: " << possibleTransitions.size() << std::endl;
 
         if (possibleTransitions.size() == 0)
         {
-            //word não foi aceita
-            return false;
+            //Se for estado final, com pilha vazia e palavra toda processada, aceita
+            //Searches for index in acceptance state vector
+            auto it = std::find(
+                this->automataInstance.vectorOfAcceptanceStateIds.begin(),
+                this->automataInstance.vectorOfAcceptanceStateIds.end(),
+                this->current_state
+            );
+            if (it != this->automataInstance.vectorOfAcceptanceStateIds.end() &&
+                    this->char_stack.length() == 0 &&
+                    (this->id_of_processed_char_input+1 > this->word.length()))
+                return true; //word foi aceita
+            else
+                return false; //word NÃO foi aceita
         }
         else
         {
@@ -91,7 +118,41 @@ bool AutomataExecution::process_word(const std::string &word)
 
             this->current_state = chosen.destiny_state;
 
-            if (chosen.transition.inputSymbol == 'e' &&
+
+            if (chosen.transition.inputSymbol == 'e')
+            {
+                //Não consome entrada
+            }
+            else
+            {
+                //Consome entrada
+                this->id_of_processed_char_input++;
+            }
+
+            if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
+                    chosen.transition.topOfStackSymbolToReplace == 'e')
+            {
+                //Não precisa fazer nada
+            }
+            else if (chosen.transition.topOfStackSymbolToBeReplaced != 'e' &&
+                     chosen.transition.topOfStackSymbolToReplace != 'e')
+            {
+                this->char_stack[this->char_stack.size()-1] =
+                   chosen.transition.topOfStackSymbolToReplace;
+            }
+            else if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
+                     chosen.transition.topOfStackSymbolToReplace != 'e')
+            {
+                this->char_stack.push_back(chosen.transition.topOfStackSymbolToReplace);
+            }
+            else if (chosen.transition.topOfStackSymbolToBeReplaced != 'e' &&
+                     chosen.transition.topOfStackSymbolToReplace == 'e')
+            {
+                this->char_stack.pop_back();
+            }
+
+
+            /*if (chosen.transition.inputSymbol == 'e' &&
                 chosen.transition.topOfStackSymbolToBeReplaced == 'e')
             {
                 if (chosen.transition.topOfStackSymbolToReplace != 'e')
@@ -118,17 +179,17 @@ bool AutomataExecution::process_word(const std::string &word)
                 this->id_of_processed_char_input++;
                 this->char_stack[this->char_stack.size()-1] =
                    chosen.transition.topOfStackSymbolToReplace;
-            }
+            }*/
 
             std::string msg = "After read '"+std::string(1, chosen.transition.inputSymbol)+"'";
 
             std::cout << "PD " << std::endl;
 
-            draw_automata_considering_input(msg);
+            draw_automata_considering_input_1p(msg);
         }
     }
 
-    draw_automata_considering_input("End of processing");
+    draw_automata_considering_input_1p("End of processing");
 
     return true;
 }
@@ -140,23 +201,24 @@ bool AutomataExecution::test1_remove_later(const std::string &word)
     this->current_state = 1;
     this->char_stack = "000";
 
-    draw_automata_considering_input("After read 0");
+    draw_automata_considering_input_1p("After read 0");
 
     return true;
 }
 
-void AutomataExecution::draw_automata()
+void AutomataExecution::draw_automata_0p()
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
     std::string name_of_image = this->automataInstance.nameOfAutomata+".png";
-    draw_automata(local_url, name_of_image);
+    draw_automata_2p(local_url, name_of_image);
 }
 
-void AutomataExecution::draw_automata_considering_input(const std::string& msg)
+void AutomataExecution::draw_automata_considering_input_1p(const std::string& msg)
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
     std::string name_of_image =
-            this->automataInstance.nameOfAutomata+"_"+std::to_string(this->id_of_processed_char_input+1)+".png";
+            this->automataInstance.nameOfAutomata+"_"+
+            std::to_string(this->internal_increment+1)+".png";
 
     int write_acceptance_status = 0;
 
@@ -177,7 +239,7 @@ void AutomataExecution::draw_automata_considering_input(const std::string& msg)
         write_acceptance_status
     );
 
-    draw_automata_considering_input(
+    draw_automata_considering_input_3p(
         local_url,
         name_of_image,
         content
@@ -192,18 +254,18 @@ void AutomataExecution::write_to_file(const std::string &url, const std::string 
     myfile.close();
 }
 
-void AutomataExecution::draw_automata(const std::string& local_url, const std::string &url)
+void AutomataExecution::draw_automata_2p(const std::string& local_url, const std::string &url)
 {
     std::string content = produce_content_of_draw();
 
-    draw_automata(
+    draw_automata_3p(
         local_url,
         url,
         content
     );
 }
 
-void AutomataExecution::draw_automata(
+void AutomataExecution::draw_automata_3p(
     const std::string& local_url,
     const std::string &url,
     const std::string& content
@@ -214,17 +276,19 @@ void AutomataExecution::draw_automata(
     system(command.c_str());
 }
 
-void AutomataExecution::draw_automata_considering_input(
+void AutomataExecution::draw_automata_considering_input_3p(
     const std::string& local_url,
     const std::string &url,
     const std::string& content
 )
 {
-    write_to_file(local_url+"/file"+std::to_string(this->id_of_processed_char_input+1)+
+    write_to_file(local_url+"/file"+std::to_string(this->internal_increment+1)+
                   ".dot", content);
-    std::string command = "dot "+local_url+"/file"+std::to_string(this->id_of_processed_char_input+1)+
+    std::string command = "dot "+local_url+"/file"+std::to_string(this->internal_increment+1)+
             ".dot -Tpng > "+local_url+"/"+url;
     system(command.c_str());
+
+    this->internal_increment++;
 }
 
 std::string AutomataExecution::produce_content_of_draw()
@@ -298,7 +362,8 @@ std::vector<TransitionPossibility> AutomataExecution::getAvailableTransitions
 (
     int currentStateParameter,
     char topOfStack,
-    char inputToBeProcessed
+    char inputToBeProcessed,
+    bool wordBeeingProcessed
 )
 {
     std::vector<std::vector<Transition>> transitionsLeavingCurentState =

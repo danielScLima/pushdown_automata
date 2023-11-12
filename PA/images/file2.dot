@@ -5,10 +5,6 @@ digraph G {
 struct1 [label=<<TABLE>
 <TR>
 <TD><FONT>0</FONT></TD>
-<TD BGCOLOR="gray"><FONT>0</FONT></TD>
-<TD><FONT>0</FONT></TD>
-<TD><FONT>1</FONT></TD>
-<TD><FONT>1</FONT></TD>
 <TD><FONT>1</FONT></TD>
 </TR>
 </TABLE>>];
@@ -21,14 +17,6 @@ color=red;
 struct2 [label=<<TABLE>
 <TR>
 <TD>
-0</TD>
-</TR>
-<TR>
-<TD>
-0</TD>
-</TR>
-<TR>
-<TD>
 $</TD>
 </TR>
 </TABLE>>];
@@ -38,7 +26,7 @@ color=red;
 	subgraph cluster_1 {
 		node [style=filled];
 		label = "Pushdown automata: Example_A
-After read '0'"
+After read 'e'"
 		color=blue;
 
 		q0;

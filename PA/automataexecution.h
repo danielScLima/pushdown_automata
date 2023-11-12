@@ -9,13 +9,15 @@ class AutomataExecution
 public:
     AutomataExecution(const AutomataInstance& automataInstance);
 
-    void draw_automata();
+    void draw_automata_0p();
 
-    void draw_automata_considering_input(const std::string& msg);
+    void draw_automata_considering_input_1p(const std::string& msg);
 
     bool process_word(const std::string& word);
 
     char getTopCharInStack();
+    char getCharInWord(int index);
+    bool existCharInWordPosition(int index);
 
     bool test1_remove_later(const std::string &word);
 
@@ -28,20 +30,22 @@ private:
 
     std::string word = "";
 
+    int internal_increment = 0;
+
     void reset_indexes();
 
-    void draw_automata(
+    void draw_automata_2p(
         const std::string& local_url,
         const std::string &url
     );
 
-    void draw_automata(
+    void draw_automata_3p(
         const std::string& local_url,
         const std::string &url,
         const std::string& content
     );
 
-    void draw_automata_considering_input(
+    void draw_automata_considering_input_3p(
         const std::string& local_url,
         const std::string &url,
         const std::string& content
@@ -57,7 +61,8 @@ private:
     (
         int currentStateParameter,
         char topOfStack,
-        char inputToBeProcessed
+        char inputToBeProcessed,
+        bool wordBeeingProcessed
     );
 
     std::string produce_content_of_draw_considering_input
