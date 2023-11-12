@@ -5,6 +5,11 @@ digraph G {
 struct1 [label=<<TABLE>
 <TR>
 <TD BGCOLOR="gray"><FONT>0</FONT></TD>
+<TD><FONT>0</FONT></TD>
+<TD><FONT>0</FONT></TD>
+<TD><FONT>0</FONT></TD>
+<TD><FONT>1</FONT></TD>
+<TD><FONT>1</FONT></TD>
 <TD><FONT>1</FONT></TD>
 </TR>
 </TABLE>>];

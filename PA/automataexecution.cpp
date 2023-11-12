@@ -49,7 +49,7 @@ bool AutomataExecution::process_word(const std::string &word)
     this->word = word;
     this->current_state = this->automataInstance.start_state;
 
-    draw_automata_considering_input_1p("Before to read any input");
+    draw_automata_considering_input_1p("Before to read any input", 0);
 
     int wordLen =  word.length();
     //std::cout << "wordLen: " << wordLen << std::endl;
@@ -91,12 +91,20 @@ bool AutomataExecution::process_word(const std::string &word)
                 this->automataInstance.vectorOfAcceptanceStateIds.end(),
                 this->current_state
             );
-            if (it != this->automataInstance.vectorOfAcceptanceStateIds.end() &&
-                    this->char_stack.length() == 0 &&
-                    (this->id_of_processed_char_input+1 > this->word.length()))
+            if (
+                it != this->automataInstance.vectorOfAcceptanceStateIds.end() &&
+                this->char_stack.length() == 0 &&
+                (this->id_of_processed_char_input == this->word.length()-1)
+            )
+            {
+                draw_automata_considering_input_1p("The word was accepted", 1);
                 return true; //word foi aceita
+            }
             else
+            {
+                draw_automata_considering_input_1p("The word was rejected", 2);
                 return false; //word NÃO foi aceita
+            }
         }
         else
         {
@@ -106,12 +114,25 @@ bool AutomataExecution::process_word(const std::string &word)
 
             if (possibleTransitions.size() == 1)
             {
+                chosen = possibleTransitions[0];
+
+                std::cout << "### A single one transition is possible. " << std::endl;
+                std::cout << "Going from state "+std::to_string(chosen.origin_state)+
+                             " to "+std::to_string(chosen.destiny_state) << std::endl;
+                std::cout << "The selected transition is: ";
+                std::cout << std::string(1, chosen.transition.inputSymbol)+
+                             " , "+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+
+                             " -> "+std::string(1, chosen.transition.topOfStackSymbolToReplace)+
+                          "\n" << std::endl << std::endl;
+
+                std::cout << std::endl << std::endl;
+
                 //std::cout << "PB " << std::endl;
                 //só tem uma transição a fazer
-                chosen = possibleTransitions[0];
             }
             else
             {
+                std::cout << "### More than one transition is possible. " << std::endl;
                 //std::cout << "PC " << std::endl;
                 //Existe mais do que uma transição
                 //Perguntar ao usuario qual usar
@@ -188,13 +209,13 @@ bool AutomataExecution::process_word(const std::string &word)
 
             //std::cout << "PD " << std::endl;
 
-            draw_automata_considering_input_1p(msg);
+            draw_automata_considering_input_1p(msg, 0);
         }
     }
 
-    draw_automata_considering_input_1p("End of processing");
+    //draw_automata_considering_input_1p("End of processing");
 
-    return true;
+    //return true;
 }
 
 bool AutomataExecution::test1_remove_later(const std::string &word)
@@ -204,7 +225,7 @@ bool AutomataExecution::test1_remove_later(const std::string &word)
     this->current_state = 1;
     this->char_stack = "000";
 
-    draw_automata_considering_input_1p("After read 0");
+    draw_automata_considering_input_1p("After read 0", 0);
 
     return true;
 }
@@ -216,25 +237,16 @@ void AutomataExecution::draw_automata_0p()
     draw_automata_2p(local_url, name_of_image);
 }
 
-void AutomataExecution::draw_automata_considering_input_1p(const std::string& msg)
+
+//0: ainda processando
+//1: aceito
+//2: rejeitado
+void AutomataExecution::draw_automata_considering_input_1p(const std::string& msg, int write_acceptance_status)
 {
     std::string local_url = "C:/Users/Daniel/Documents/GitHub/pushdown_automata/PA/images";
     std::string name_of_image =
             this->automataInstance.nameOfAutomata+"_"+
             std::to_string(this->internal_increment+1)+".png";
-
-    int write_acceptance_status = 0;
-
-    if (this->id_of_processed_char_input == this->word.size())
-    {
-        if (this->char_stack.length() == 0)
-            write_acceptance_status = 1;
-        else
-            write_acceptance_status = 2;
-    }
-    else {
-        write_acceptance_status = 0;
-    }
 
     std::string content = AutomataExecution::produce_content_of_draw_considering_input
     (

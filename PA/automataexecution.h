@@ -11,7 +11,7 @@ public:
 
     void draw_automata_0p();
 
-    void draw_automata_considering_input_1p(const std::string& msg);
+    void draw_automata_considering_input_1p(const std::string& msg, int write_acceptance_status);
 
     bool process_word(const std::string& word);
 
