@@ -27,10 +27,10 @@ int main()
     //automataExecution.process_word("00");
 
     //Example 4
-    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_4());
-    automataExecution.draw_automata_0p();
+    //AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_4());
+    //automataExecution.draw_automata_0p();
 
-    automataExecution.process_word("");
+    //automataExecution.process_word("");
 
     return 0;
 }
