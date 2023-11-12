@@ -5,11 +5,7 @@ digraph G {
 struct1 [label=<<TABLE>
 <TR>
 <TD><FONT>0</FONT></TD>
-<TD><FONT>0</FONT></TD>
-<TD><FONT>0</FONT></TD>
-<TD><FONT>1</FONT></TD>
-<TD><FONT>1</FONT></TD>
-<TD><FONT>1</FONT></TD>
+<TD BGCOLOR="gray"><FONT>1</FONT></TD>
 </TR>
 </TABLE>>];
 label = "Word";
@@ -20,8 +16,8 @@ color=red;
 
 struct2 [label=<<TABLE>
 <TR>
-<TD>
-$</TD>
+<TD width="10" height="50">
+</TD>
 </TR>
 </TABLE>>];
 label = "Stack top";
@@ -34,9 +30,9 @@ After read 'e'"
 		color=blue;
 
 		q0;
-		q1 [color="lightblue"];
+		q1;
 		q2;
-		q3 [shape="doublecircle"];
+		q3 [shape="doublecircle",color="lightblue"];
 		q0->q1[label="e,e -> $"];
 		q1->q1[label="0,e -> 0"];
 		q1->q2[label="1,0 -> e"];
