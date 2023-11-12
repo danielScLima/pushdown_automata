@@ -45,8 +45,8 @@ int main()
     //automataExecution.process_word("011222");
 
     //Example 4
-    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_4());
-    automataExecution.draw_automata_0p();
+    //AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_4());
+    //automataExecution.draw_automata_0p();
 
     //automataExecution.process_word("01");
     //automataExecution.process_word("0011");
@@ -54,7 +54,7 @@ int main()
     //automataExecution.process_word("0");
     //automataExecution.process_word("1");
     //automataExecution.process_word("001");
-    automataExecution.process_word("");
+    //automataExecution.process_word("");
 
     return 0;
 }
