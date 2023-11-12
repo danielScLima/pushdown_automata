@@ -13,6 +13,8 @@ public:
     static AutomataInstance get_structure_of_sample_2();
 
     static AutomataInstance get_structure_of_sample_3();
+
+    static AutomataInstance get_structure_of_sample_4();
 };
 
 #endif // PUSHDOWNAUTOMATASAMPLES_H
