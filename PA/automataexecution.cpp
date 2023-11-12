@@ -132,14 +132,39 @@ bool AutomataExecution::process_word(const std::string &word)
             }
             else
             {
-                std::cout << "### More than one transition is possible. " << std::endl;
+                std::cout << "### More than one transition is possible. Possibilities: " << std::endl;
+                for (int index = 0; index < possibleTransitions.size(); ++index)
+                {
+                    TransitionPossibility possible = possibleTransitions[index];
+                    std::cout << "Type "+std::to_string(index) << " to choose: ";
+                    std::cout << "Origin: state "+std::to_string(possible.origin_state) <<
+                                 " Destiny: state "+std::to_string(possible.destiny_state);
+                    std::cout << " -- Transition: " << std::string(1, possible.transition.inputSymbol)+
+                                 " , "+std::string(1, possible.transition.topOfStackSymbolToBeReplaced)+
+                                 " -> "+std::string(1, possible.transition.topOfStackSymbolToReplace) <<
+                                 std::endl;
+                }
+                std::cout << "Which one must be chosen? " << std::endl;
                 std::cout.flush();
+
+                int escolha = read_number_betwen_0_and_max(possibleTransitions.size()-1);
 
                 //std::cout << "PC " << std::endl;
                 //Existe mais do que uma transição
                 //Perguntar ao usuario qual usar
-                int escolha = 0;
+                //int escolha = 0;
+
                 chosen = possibleTransitions[escolha];
+
+                std::cout << "Going from state "+std::to_string(chosen.origin_state)+
+                             " to "+std::to_string(chosen.destiny_state) << std::endl;
+                std::cout << "The selected transition is: ";
+                std::cout << std::string(1, chosen.transition.inputSymbol)+
+                             " , "+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+
+                             " -> "+std::string(1, chosen.transition.topOfStackSymbolToReplace)
+                          << std::endl << std::endl;
+
+                std::cout.flush();
             }
 
             this->current_state = chosen.destiny_state;
@@ -218,6 +243,23 @@ bool AutomataExecution::process_word(const std::string &word)
     //draw_automata_considering_input_1p("End of processing");
 
     //return true;
+}
+
+int AutomataExecution::read_number_betwen_0_and_max(int numeroMaximo)
+{
+    int numero;
+    std::cout << "Digite um número inteiro entre 0 e " << numeroMaximo << std::endl;
+    std::cin >> numero;
+
+    while(std::cin.fail() || numero < 0 || numero > numeroMaximo)
+    {
+        std::cin.clear();
+        std::cin.ignore(256,'\n');
+        std::cout << "Digite um número: " << std::endl;
+        std::cin >> numero;
+    }
+    std::cout << "Número digitado: " << numero << std::endl;
+    return numero;
 }
 
 bool AutomataExecution::test1_remove_later(const std::string &word)

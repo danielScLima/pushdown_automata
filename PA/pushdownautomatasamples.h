@@ -9,6 +9,8 @@ public:
     PushdownAutomataSamples();
 
     static AutomataInstance get_structure_of_sample_1();
+
+    static AutomataInstance get_structure_of_sample_2();
 };
 
 #endif // PUSHDOWNAUTOMATASAMPLES_H

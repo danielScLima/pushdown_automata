@@ -5,12 +5,7 @@ digraph G {
 struct1 [label=<<TABLE>
 <TR>
 <TD><FONT>0</FONT></TD>
-<TD><FONT>0</FONT></TD>
 <TD BGCOLOR="gray"><FONT>0</FONT></TD>
-<TD><FONT>0</FONT></TD>
-<TD><FONT>1</FONT></TD>
-<TD><FONT>1</FONT></TD>
-<TD><FONT>1</FONT></TD>
 </TR>
 </TABLE>>];
 label = "Word";
@@ -20,18 +15,6 @@ color=red;
 		node [shape=plaintext];
 
 struct2 [label=<<TABLE>
-<TR>
-<TD>
-0</TD>
-</TR>
-<TR>
-<TD>
-0</TD>
-</TR>
-<TR>
-<TD>
-0</TD>
-</TR>
 <TR>
 <TD>
 $</TD>
@@ -47,13 +30,15 @@ After read '0'"
 		color=blue;
 
 		q0;
-		q1 [color="lightblue"];
-		q2;
+		q1;
+		q2 [color="lightblue"];
 		q3 [shape="doublecircle"];
 		q0->q1[label="e,e -> $"];
-		q1->q1[label="0,e -> 0"];
-		q1->q2[label="1,0 -> e"];
-		q2->q2[label="1,0 -> e"];
+		q1->q1[label="0,e -> 0
+1,e -> 1"];
+		q1->q2[label="e,e -> e"];
+		q2->q2[label="0,0 -> e
+1,1 -> e"];
 		q2->q3[label="e,$ -> e"];
 x [color=white, label=""];		x->q0	}
 

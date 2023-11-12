@@ -72,6 +72,8 @@ private:
     );
 
     std::string getCharTransformedAsString(char c);
+
+    int read_number_betwen_0_and_max(int numeroMaximo);
 };
 
 #endif // AUTOMATAEXECUTION_H
