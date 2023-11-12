@@ -51,21 +51,8 @@ bool AutomataExecution::process_word(const std::string &word)
 
     draw_automata_considering_input_1p("Before to read any input", 0);
 
-    int wordLen =  word.length();
-    //std::cout << "wordLen: " << wordLen << std::endl;
-    //std::cout << "this->id_of_processed_char_input: " << this->id_of_processed_char_input << std::endl;
-
-    //for (
-         //this->id_of_processed_char_input = 0
-    //     ;
-    //     this->id_of_processed_char_input < wordLen;
-         //this->id_of_processed_char_input++
-    //)
     while (true)
     {
-        //std::cout << "? "<< std::endl;
-
-        //std::cout << "Stack '" << this->char_stack << "'" << std::endl;
         char topCharInStack = getTopCharInStack();
         char charInWord = getCharInWord(this->id_of_processed_char_input+1);
 
@@ -73,14 +60,10 @@ bool AutomataExecution::process_word(const std::string &word)
         std::vector<TransitionPossibility> possibleTransitions = getAvailableTransitions
         (
             this->current_state,
-            //this->char_stack.back(),
-            topCharInStack, //getTopCharInStack(),
-            //word[this->id_of_processed_char_input+1]
-            charInWord, //getCharInWord(this->id_of_processed_char_input+1),
+            topCharInStack,
+            charInWord,
             existCharInWordPosition(this->id_of_processed_char_input+1)
         );
-
-        //std::cout << "Quant de transitions: " << possibleTransitions.size() << std::endl;
 
         if (possibleTransitions.size() == 0)
         {
@@ -110,8 +93,6 @@ bool AutomataExecution::process_word(const std::string &word)
         {
             TransitionPossibility chosen;
 
-            //std::cout << "PA " << std::endl;
-
             if (possibleTransitions.size() == 1)
             {
                 chosen = possibleTransitions[0];
@@ -126,9 +107,6 @@ bool AutomataExecution::process_word(const std::string &word)
                           << std::endl << std::endl;
 
                 std::cout.flush();
-
-                //std::cout << "PB " << std::endl;
-                //só tem uma transição a fazer
             }
             else
             {
@@ -148,11 +126,6 @@ bool AutomataExecution::process_word(const std::string &word)
                 std::cout.flush();
 
                 int escolha = read_number_betwen_0_and_max(possibleTransitions.size()-1);
-
-                //std::cout << "PC " << std::endl;
-                //Existe mais do que uma transição
-                //Perguntar ao usuario qual usar
-                //int escolha = 0;
 
                 chosen = possibleTransitions[escolha];
 
@@ -202,47 +175,11 @@ bool AutomataExecution::process_word(const std::string &word)
                 this->char_stack.pop_back();
             }
 
-
-            /*if (chosen.transition.inputSymbol == 'e' &&
-                chosen.transition.topOfStackSymbolToBeReplaced == 'e')
-            {
-                if (chosen.transition.topOfStackSymbolToReplace != 'e')
-                {
-                    //this->id_of_processed_char_input++;
-                    this->char_stack.push_back(chosen.transition.topOfStackSymbolToReplace);
-                }
-            }
-            else if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
-                chosen.transition.topOfStackSymbolToReplace == 'e')
-            {} //nada a fazer
-            else if (chosen.transition.topOfStackSymbolToReplace == 'e')
-            {
-                this->id_of_processed_char_input++;
-                this->char_stack.pop_back();
-            }
-            else if (chosen.transition.topOfStackSymbolToBeReplaced == 'e')
-            {
-                this->id_of_processed_char_input++;
-                this->char_stack.push_back(chosen.transition.topOfStackSymbolToReplace);
-            }
-            else
-            {
-                this->id_of_processed_char_input++;
-                this->char_stack[this->char_stack.size()-1] =
-                   chosen.transition.topOfStackSymbolToReplace;
-            }*/
-
             std::string msg = "After read '"+std::string(1, chosen.transition.inputSymbol)+"'";
-
-            //std::cout << "PD " << std::endl;
 
             draw_automata_considering_input_1p(msg, 0);
         }
     }
-
-    //draw_automata_considering_input_1p("End of processing");
-
-    //return true;
 }
 
 int AutomataExecution::read_number_betwen_0_and_max(int numeroMaximo)
@@ -495,8 +432,6 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
 {
     std::string content = "digraph G {\n";
 
-    //std::cout << "x1 " << std::endl;
-
     content += "\tsubgraph cluster_0 {\n";
     content += "\t\tnode [shape=plaintext];\n";
     content += "\n";
@@ -505,7 +440,6 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
 
     for(int index = 0; index < this->word.size();++index)
     {
-        //if (index == previous_input_symbol_index)
         if (index == this->id_of_processed_char_input)
         {
             content += "<TD BGCOLOR=\"gray\"><FONT>"+
@@ -516,8 +450,6 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
             content += "<TD><FONT>"+getCharTransformedAsString(this->word[index])+"</FONT></TD>\n";
         }
     }
-
-    //std::cout << "x2 " << std::endl;
 
     content += "</TR>\n";
     content += "</TABLE>>];\n";
@@ -530,18 +462,12 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
     content += "\t\tnode [shape=plaintext];\n";
     content += "\n";
 
-    //std::cout << "x3 " << std::endl;
-
     int stack_len = this->char_stack.length();
     if (stack_len > 0)
     {
-        //std::cout << " aqui" << std::endl;
-        //std::cout << " tamanho: " << stack_len << std::endl;
         content += "struct2 [label=<<TABLE>\n";
         for (int index = stack_len - 1; index > -1; index--)
         {
-            //std::cout << " teste " << std::endl;
-
             content += "<TR>\n";
             content += "<TD>\n";
             content += this->char_stack[index];
@@ -549,8 +475,6 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
             content += "</TR>\n";
         }
         content += "</TABLE>>];\n";
-
-        //std::cout << " aqui2" << std::endl;
     }
     else
     {
@@ -571,7 +495,6 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
     content += "}\n";
 
     //fim de desenhando stack
-
 
     content += "\tsubgraph cluster_1 {\n";
     content += "\t\tnode [style=filled];\n";
@@ -673,12 +596,5 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
 
 std::string AutomataExecution::getCharTransformedAsString(char c)
 {
-    //    if (c == '<')
-    //        return std::string("&lt;");
-    //    else if (c == '>')
-    //        return std::string("&gt;");
-    //    else
-    //        return std::string(1, c);
-
     return std::string(1, c);
 }

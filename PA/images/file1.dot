@@ -25,7 +25,7 @@ color=red;
 }
 	subgraph cluster_1 {
 		node [style=filled];
-		label = "Pushdown automata: Example_A
+		label = "Pushdown automata: Example_B
 Before to read any input"
 		color=blue;
 

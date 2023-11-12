@@ -93,6 +93,6 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_2()
         st,                             //structure
         0,                              //start_state
         vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
-        "Example_A"                     //nameOfAutomata
+        "Example_B"                     //nameOfAutomata
     );
 }
