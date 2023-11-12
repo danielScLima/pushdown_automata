@@ -43,6 +43,46 @@ bool AutomataExecution::existCharInWordPosition(int index)
     return index < this->word.length();
 }
 
+bool AutomataExecution::singleTransitionMustMove
+(
+    TransitionPossibility possibility
+)
+{
+    if (possibility.transition.inputSymbol != 'e')
+        return true;
+
+    //possibility.transition.inputSymbol == 'e'
+
+    if (theEntireWordHasBeenProcessed() == false)
+        return true;
+
+    //theEntireWordHasBeenProcessed() == true
+    if (theStackIsEmpty() == false)
+        return true;
+
+    return false; //Pode aceitar a palavra
+}
+
+bool AutomataExecution::theCurrentStateIsAFinalState()
+{
+    auto it = std::find(
+        this->automataInstance.vectorOfAcceptanceStateIds.begin(),
+        this->automataInstance.vectorOfAcceptanceStateIds.end(),
+        this->current_state
+    );
+    return it != this->automataInstance.vectorOfAcceptanceStateIds.end();
+}
+
+bool AutomataExecution::theEntireWordHasBeenProcessed()
+{
+    return this->id_of_processed_char_input == this->word.length()-1;
+}
+
+bool AutomataExecution::theStackIsEmpty()
+{
+    return this->char_stack.length() == 0;
+}
+
 bool AutomataExecution::process_word(const std::string &word)
 {
     reset_indexes();
@@ -100,13 +140,27 @@ bool AutomataExecution::process_word(const std::string &word)
                 std::cout << "### A single one transition is possible. " << std::endl;
                 std::cout << "Going from state "+std::to_string(chosen.origin_state)+
                              " to "+std::to_string(chosen.destiny_state) << std::endl;
-                std::cout << "The selected transition is: ";
+                std::cout << "The transition is: ";
                 std::cout << std::string(1, chosen.transition.inputSymbol)+
                              " , "+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+
                              " -> "+std::string(1, chosen.transition.topOfStackSymbolToReplace)
                           << std::endl << std::endl;
 
                 std::cout.flush();
+
+                //Verify if must follow the single transition
+                bool ret = singleTransitionMustMove(possibleTransitions[0]);
+                if (ret == false)
+                {
+                    //The word can already be accepted
+                    std::cout << "The word can already be accepted. " << std::endl;
+                    draw_automata_considering_input_1p("The word was accepted", 1);
+                    return true;
+                }
+                else
+                {
+                    std::cout << "Following the transition. " << std::endl;
+                }
             }
             else
             {
@@ -437,6 +491,11 @@ std::string AutomataExecution::produce_content_of_draw_considering_input
         {
             content += "<TD><FONT>"+getCharTransformedAsString(this->word[index])+"</FONT></TD>\n";
         }
+    }
+
+    if (this->word.length() == 0)
+    {
+        content += "<TD width=\"50\" height=\"10\"> </TD>";
     }
 
     content += "</TR>\n";

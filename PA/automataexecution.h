@@ -72,6 +72,14 @@ private:
     std::string getCharTransformedAsString(char c);
 
     int read_number_betwen_0_and_max(int numeroMaximo);
+
+    bool singleTransitionMustMove(TransitionPossibility possibility);
+
+    bool theCurrentStateIsAFinalState();
+
+    bool theEntireWordHasBeenProcessed();
+
+    bool theStackIsEmpty();
 };
 
 #endif // AUTOMATAEXECUTION_H
