@@ -15,6 +15,8 @@ public:
 
     bool process_word(const std::string& word);
 
+    char getTopCharInStack();
+
     bool test1_remove_later(const std::string &word);
 
 private:

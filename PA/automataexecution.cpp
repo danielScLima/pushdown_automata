@@ -18,7 +18,16 @@ void AutomataExecution::reset_indexes()
     this->word = "";
 }
 
-
+char AutomataExecution::getTopCharInStack()
+{
+    if (this->char_stack.length() == 0)
+        return 'e';
+    else
+    {
+        char b = this->char_stack.back();
+        return b;
+    }
+}
 
 bool AutomataExecution::process_word(const std::string &word)
 {
@@ -28,18 +37,28 @@ bool AutomataExecution::process_word(const std::string &word)
 
     draw_automata_considering_input("Before to read any input");
 
+    int wordLen =  word.length();
+    std::cout << "wordLen: " << wordLen << std::endl;
+    std::cout << "this->id_of_processed_char_input: " << this->id_of_processed_char_input << std::endl;
+
     for (
-         this->id_of_processed_char_input = 0;
-         this->id_of_processed_char_input < word.size();
-         this->id_of_processed_char_input++
+         //this->id_of_processed_char_input = 0
+         ;
+         this->id_of_processed_char_input < wordLen;
+         //this->id_of_processed_char_input++
     )
     {
+        std::cout << "? "<< std::endl;
+
+        std::cout << "Stack '" << this->char_stack << "'" << std::endl;
+
         //Get all of the possible transitions
         std::vector<TransitionPossibility> possibleTransitions = getAvailableTransitions
         (
             this->current_state,
-            this->char_stack.back(),
-            word[this->id_of_processed_char_input]
+            //this->char_stack.back(),
+            getTopCharInStack(),
+            word[this->id_of_processed_char_input+1]
         );
 
         std::cout << "Quant de transitions: " << possibleTransitions.size() << std::endl;
@@ -72,15 +91,31 @@ bool AutomataExecution::process_word(const std::string &word)
 
             this->current_state = chosen.destiny_state;
 
-            if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
+            if (chosen.transition.inputSymbol == 'e' &&
+                chosen.transition.topOfStackSymbolToBeReplaced == 'e')
+            {
+                if (chosen.transition.topOfStackSymbolToReplace != 'e')
+                {
+                    //this->id_of_processed_char_input++;
+                    this->char_stack.push_back(chosen.transition.topOfStackSymbolToReplace);
+                }
+            }
+            else if (chosen.transition.topOfStackSymbolToBeReplaced == 'e' &&
                 chosen.transition.topOfStackSymbolToReplace == 'e')
             {} //nada a fazer
             else if (chosen.transition.topOfStackSymbolToReplace == 'e')
             {
+                this->id_of_processed_char_input++;
                 this->char_stack.pop_back();
+            }
+            else if (chosen.transition.topOfStackSymbolToBeReplaced == 'e')
+            {
+                this->id_of_processed_char_input++;
+                this->char_stack.push_back(chosen.transition.topOfStackSymbolToReplace);
             }
             else
             {
+                this->id_of_processed_char_input++;
                 this->char_stack[this->char_stack.size()-1] =
                    chosen.transition.topOfStackSymbolToReplace;
             }
