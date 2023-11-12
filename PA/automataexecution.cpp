@@ -122,10 +122,10 @@ bool AutomataExecution::process_word(const std::string &word)
                 std::cout << "The selected transition is: ";
                 std::cout << std::string(1, chosen.transition.inputSymbol)+
                              " , "+std::string(1, chosen.transition.topOfStackSymbolToBeReplaced)+
-                             " -> "+std::string(1, chosen.transition.topOfStackSymbolToReplace)+
-                          "\n" << std::endl << std::endl;
+                             " -> "+std::string(1, chosen.transition.topOfStackSymbolToReplace)
+                          << std::endl << std::endl;
 
-                std::cout << std::endl << std::endl;
+                std::cout.flush();
 
                 //std::cout << "PB " << std::endl;
                 //só tem uma transição a fazer
@@ -133,6 +133,8 @@ bool AutomataExecution::process_word(const std::string &word)
             else
             {
                 std::cout << "### More than one transition is possible. " << std::endl;
+                std::cout.flush();
+
                 //std::cout << "PC " << std::endl;
                 //Existe mais do que uma transição
                 //Perguntar ao usuario qual usar
