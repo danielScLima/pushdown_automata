@@ -47,7 +47,7 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_1()
         st,                             //structure
         0,                              //start_state
         vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
-        "Example_A"                     //nameOfAutomata
+        "Example_1"                     //nameOfAutomata
     );
 }
 
@@ -93,7 +93,7 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_2()
         st,                             //structure
         0,                              //start_state
         vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
-        "Example_B"                     //nameOfAutomata
+        "Example_2"                     //nameOfAutomata
     );
 }
 
@@ -139,6 +139,6 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_4()
         st,                             //structure
         0,                              //start_state
         vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
-        "Example_A"                     //nameOfAutomata
+        "Example_4"                     //nameOfAutomata
     );
 }
