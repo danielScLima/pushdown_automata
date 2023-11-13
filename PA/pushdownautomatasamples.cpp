@@ -423,3 +423,63 @@ AutomataInstance PushdownAutomataSamples::get_structure_of_sample_6()
         "Example_6"                     //nameOfAutomata
     );
 }
+
+
+AutomataInstance PushdownAutomataSamples::get_structure_of_sample_7()
+{
+    std::vector<std::vector<std::vector<Transition>>> st = {
+        //vector starting from 0
+        {
+            {}, //vector arriving at 0
+            {Transition('e','e','$')}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {}, //vector arriving at 3
+            {}, //vector arriving at 4
+        },
+
+        //vector starting from 1
+        {
+            {}, //vector arriving at 0
+            {Transition('a','e','a')}, //vector arriving at 1
+            {Transition('e','e','e')},  //vector arriving at 2
+            {}, //vector arriving at 3
+            {}, //vector arriving at 4
+        },
+
+        //vector starting from 2
+        {
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {Transition('b','e','a')},  //vector arriving at 2
+            {Transition('e','e','e')}, //vector arriving at 3
+            {}, //vector arriving at 4
+        },
+
+        //vector starting from 3
+        {
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {Transition('a','a','e')}, //vector arriving at 3
+            {Transition('e','$','e')}, //vector arriving at 4
+        },
+
+        //vector starting from 4
+        {
+            {}, //vector arriving at 0
+            {}, //vector arriving at 1
+            {}, //vector arriving at 2
+            {}, //vector arriving at 3
+            {}, //vector arriving at 4
+        },
+    };
+
+    std::vector<int> vectorOfAcceptanceStateIds = {4};
+
+    return AutomataInstance(
+        st,                             //structure
+        0,                              //start_state
+        vectorOfAcceptanceStateIds,     //vectorOfAcceptanceStateIds
+        "Example_7"                     //nameOfAutomata
+    );
+}

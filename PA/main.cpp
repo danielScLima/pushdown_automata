@@ -68,9 +68,9 @@ int main()
     //automataExecution.process_word("aab");
     //automataExecution.process_word("abaa");
 
-    //Example 5
-    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_6());
-    automataExecution.draw_automata_0p();
+    //Example 6
+    //AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_6());
+    //automataExecution.draw_automata_0p();
 
     //automataExecution.process_word("");
     //automataExecution.process_word("ab");
@@ -78,7 +78,19 @@ int main()
     //automataExecution.process_word("aabb");
     //automataExecution.process_word("bbaa");
     //automataExecution.process_word("aab");
-    automataExecution.process_word("abaa");
+    //automataExecution.process_word("abaa");
+
+    //Example 7
+    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_7());
+    automataExecution.draw_automata_0p();
+
+    //automataExecution.process_word("");
+    //automataExecution.process_word("abaa");
+    //automataExecution.process_word("aabbaaaa");
+    //automataExecution.process_word("ab");
+    //automataExecution.process_word("aba");
+    //automataExecution.process_word("ba");
+    automataExecution.process_word("baa");
 
     return 0;
 }

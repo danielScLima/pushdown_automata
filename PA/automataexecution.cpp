@@ -60,7 +60,11 @@ bool AutomataExecution::singleTransitionMustMove
     if (theStackIsEmpty() == false)
         return true;
 
-    return false; //Pode aceitar a palavra
+    //Novo
+    if (theCurrentStateIsAFinalState() == true)
+        return false;
+    else
+        return true;
 }
 
 bool AutomataExecution::theCurrentStateIsAFinalState()
