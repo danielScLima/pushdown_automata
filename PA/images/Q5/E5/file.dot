@@ -1,0 +1,30 @@
+digraph G {
+	subgraph cluster_1 {
+		node [style=filled];
+		label = "Pushdown automata: Example_5"
+		color=blue;
+
+		q0;
+		q1 [shape="doublecircle"];
+		q2;
+		q3;
+		q4 [shape="doublecircle"];
+		q5 [shape="doublecircle"];
+		q6;
+		q7;
+		q8 [shape="doublecircle"];
+		q0->q1[label="e,e -> e"];
+		q0->q5[label="e,e -> e"];
+		q1->q2[label="e,e -> $"];
+		q2->q2[label="a,e -> a"];
+		q2->q3[label="b,a -> e"];
+		q3->q3[label="b,a -> e"];
+		q3->q4[label="e,$ -> e"];
+		q5->q6[label="e,e -> $"];
+		q6->q6[label="b,e -> b"];
+		q6->q7[label="a,b -> e"];
+		q7->q7[label="a,b -> e"];
+		q7->q8[label="e,$ -> e"];
+x [color=white, label=""];		x->q0	}
+
+}
