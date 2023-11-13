@@ -57,7 +57,19 @@ int main()
     //automataExecution.process_word("");
 
     //Example 5
-    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_5());
+    //AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_5());
+    //automataExecution.draw_automata_0p();
+
+    //automataExecution.process_word("");
+    //automataExecution.process_word("ab");
+    //automataExecution.process_word("ba");
+    //automataExecution.process_word("aabb");
+    //automataExecution.process_word("bbaa");
+    //automataExecution.process_word("aab");
+    //automataExecution.process_word("abaa");
+
+    //Example 5
+    AutomataExecution automataExecution(PushdownAutomataSamples::get_structure_of_sample_6());
     automataExecution.draw_automata_0p();
 
     //automataExecution.process_word("");

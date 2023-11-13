@@ -1,0 +1,51 @@
+digraph G {
+	subgraph cluster_0 {
+		node [shape=plaintext];
+
+struct1 [label=<<TABLE>
+<TR>
+<TD><FONT>b</FONT></TD>
+<TD><FONT>b</FONT></TD>
+<TD><FONT>a</FONT></TD>
+<TD><FONT>a</FONT></TD>
+</TR>
+</TABLE>>];
+label = "Word";
+color=red;
+}
+	subgraph cluster_2 {
+		node [shape=plaintext];
+
+struct2 [label=<<TABLE>
+<TR>
+<TD width="10" height="50">
+</TD>
+</TR>
+</TABLE>>];
+label = "Stack top";
+color=red;
+}
+	subgraph cluster_1 {
+		node [style=filled];
+		label = "Pushdown automata: Example_6
+Before to read any input"
+		color=blue;
+
+		q0 [color="lightblue"];
+		q1;
+		q2;
+		q3 [shape="doublecircle"];
+		q4;
+		q0->q1[label="e,e -> $"];
+		q1->q1[label="b,a -> e
+a,b -> e"];
+		q1->q2[label="a,a -> a
+a,$ -> $"];
+		q1->q3[label="e,$ -> e"];
+		q1->q4[label="b,$ -> $
+b,b -> b"];
+		q2->q1[label="e,e -> a"];
+		q4->q1[label="e,e -> b"];
+x [color=white, label=""];		x->q0	}
+
+}
